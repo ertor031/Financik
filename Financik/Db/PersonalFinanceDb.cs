@@ -314,11 +314,11 @@ namespace Financik.Db
             }
         }
 
-        public User? GetUserByLogin(string login)
+        public User? GetUserByLoginAndPassword(string login, string password)
         {
             try
             {
-                var user = _db.Users.Where(u => u.Login == login).FirstOrDefault();
+                var user = _db.Users.Where(u => u.Login == login && u.Password == password).FirstOrDefault();
                 return user;
             }
             catch (Exception ex)
