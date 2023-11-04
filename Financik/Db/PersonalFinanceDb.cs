@@ -303,7 +303,7 @@ namespace Financik.Db
         //For user
         public void AddUser(User user)
         {
-            if (_db.Users.Any(u => u.Login == user.Login))
+            if (_db.Users.Any(u => u.Login == user.Login || u.Password == user.Password))
             {
                 System.Windows.Forms.MessageBox.Show("This user already exists in the database");
             }
