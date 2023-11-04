@@ -21,5 +21,12 @@ namespace Financik.Data
             //Database.EnsureDeleted();
             //Database.EnsureCreated();
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Card>()
+                .HasIndex(c => c.Number)
+                .IsUnique();
+        }
     }
 }
