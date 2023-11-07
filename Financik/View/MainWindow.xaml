@@ -9,37 +9,17 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="Finance" Height="450" Width="800" x:Name="mnWnd">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.2*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="0.2*"/>
-        </Grid.RowDefinitions>
         <Grid>
-
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" Margin="20px" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Login" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-            <PasswordBox Grid.Row="1"  Margin="20px" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Password" Style="{StaticResource MaterialDesignFilledPasswordBox}"></PasswordBox>
-            <CheckBox x:Name="Checkboxer"  FontSize="15" Grid.Row="2"  Margin="20px" Content="Offer" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
-        </Grid>
-
-        <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <GroupBox FontWeight="Bold"  Header="Карты" FontSize="18" Margin="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="18*"/>
-                        <ColumnDefinition Width="145*"/>
+                        <ColumnDefinition Width="0.8*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -47,32 +27,13 @@
                     </Grid.RowDefinitions>
 
 
-                    <ComboBox x:Name="Boxer" Grid.Row="1" Grid.ColumnSpan="2"  />
-                    <Button  Grid.Row="2" Grid.Column="0" Margin="10,19,10,20" FontSize="20" Command="{Binding DeleteCommand}" Grid.ColumnSpan="2" IsEnabled="False">Добавить карту</Button>
-                    <Button  Grid.Row="3" Grid.Column="0"  Margin="10,19,10,19" FontSize="20" Command="{Binding AddCommand}"
-                     CommandParameter="{Binding ElementName=mnWnd}" Grid.ColumnSpan="2" Click="Button_Click" IsEnabled="False">Статистика</Button>
-
+                    <ComboBox x:Name="Boxer" Grid.Row="0" Grid.Column="1"></ComboBox>
+                    <Button  Grid.Row="1" Grid.Column="0"  Margin="10" FontSize="20" Command="{Binding AddCommand}">Добавить карту</Button>
+                    <Button  Grid.Row="2" Grid.Column="0" Margin="10" FontSize="20" Command="{Binding DeleteCommand}">Добавить статистику</Button>
+                    <Button  Grid.Row="3" Grid.Column="0"  Margin="10" FontSize="20" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=mnWnd}" Click="Button_Click">Статистика</Button>
+                    <Label x:Name="MyTime"></Label>
                 </Grid>
             </GroupBox>
-
-        </Grid>
-        <Grid Grid.Column="0" Grid.Row="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.8*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Button x:Name="Regestration" Grid.Row="0" Margin="10" FontSize="20" IsEnabled="False" >Регестрация</Button>
-                <Button x:Name="Authorisation" Grid.Row="1" Grid.Column="1" Margin="10" FontSize="20" Command="{Binding AddCommand}"
-                    CommandParameter="{Binding ElementName=mnWnd}" IsEnabled="False" RenderTransformOrigin="0.504,0.524" Click="Authorisation_Click">Авторизация</Button>
-            </Grid>
-        </Grid>
-        <Grid Grid.Column="1" Grid.Row="1">
-            <Label x:Name="MyTime" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"></Label>
         </Grid>
     </Grid>
 </Window>
-

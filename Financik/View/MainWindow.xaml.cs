@@ -26,20 +26,20 @@ namespace Financik
             _ = MyTimer();
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            if (Checkboxer.IsChecked == true)
-            {
+        //private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    if (Checkboxer.IsChecked == true)
+        //    {
 
-                Authorisation.IsEnabled = true;
-                Regestration.IsEnabled = true;
-            }
-            else
-            {
-                Authorisation.IsEnabled = false;
-                Regestration.IsEnabled = false;
-            }
-        }
+        //        Authorisation.IsEnabled = true;
+        //        Regestration.IsEnabled = true;
+        //    }
+        //    else
+        //    {
+        //        Authorisation.IsEnabled = false;
+        //        Regestration.IsEnabled = false;
+        //    }
+        //}
 
         public async Task MyTimer()
         {
