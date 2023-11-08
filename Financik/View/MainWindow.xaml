@@ -29,7 +29,7 @@
 
                     <ComboBox x:Name="Boxer" Grid.Row="0" Grid.Column="1"></ComboBox>
                     <Button  Grid.Row="1" Grid.Column="0"  Margin="10" FontSize="20" Command="{Binding AddCommand}">Добавить карту</Button>
-                    <Button  Grid.Row="2" Grid.Column="0" Margin="10" FontSize="20" Command="{Binding DeleteCommand}">Добавить статистику</Button>
+                    <Button x:Name="btnAddStatistic" Grid.Row="2" Grid.Column="0" Margin="10" FontSize="20" Command="{Binding DeleteCommand}" Click="btnAddStatistic_Click">Добавить статистику</Button>
                     <Button  Grid.Row="3" Grid.Column="0"  Margin="10" FontSize="20" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=mnWnd}" Click="Button_Click">Статистика</Button>
                     <Label x:Name="MyTime"></Label>
                 </Grid>

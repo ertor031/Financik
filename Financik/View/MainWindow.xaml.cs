@@ -24,6 +24,7 @@ namespace Financik
     {
         User currentUser;
         PersonalFinanceDb db;
+        Card currentCard;
         public MainWindow(User currentUser, PersonalFinanceDb db)
         {
             InitializeComponent();
@@ -47,6 +48,13 @@ namespace Financik
             taskWindow.ViewModel = "ViewModel";
             taskWindow.Show();
 
+        }
+
+        private void btnAddStatistic_Click(object sender, RoutedEventArgs e)
+        {
+            AddFinance addFinanceWindow = new AddFinance(currentCard, currentUser, db);
+            addFinanceWindow.Show();
+            this.Close();
         }
     }
 }
