@@ -45,6 +45,20 @@ namespace Financik.Db
             }
         }
 
+        public Card? GetCardById(int id)
+        {
+            try
+            {
+                var card = _db.Cards.Where(c=>c.Id == id).FirstOrDefault();
+                return card;
+            }
+            catch(Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
         public async Task DeleteCardByNumber(string number)
         {
             var card = _db.Cards.Where(c => c.Number == number).FirstOrDefault();
