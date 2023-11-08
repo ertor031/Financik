@@ -45,6 +45,20 @@ namespace Financik.Db
             }
         }
 
+        public List<Card>? GetCardsByUserId(int userId)
+        {
+            try
+            {
+                var cards = _db.Cards.Where(c => c.UserId == userId).ToList();
+                return cards;
+            }
+            catch(Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
         public Card? GetCardById(int id)
         {
             try
