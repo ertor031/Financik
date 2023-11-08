@@ -24,20 +24,26 @@ namespace Financik
     {
         User currentUser;
         PersonalFinanceDb db;
+        List<Card> currentCardList;
         Card currentCard;
+
+
         public MainWindow(User currentUser, PersonalFinanceDb db)
         {
             InitializeComponent();
             _ = MyTimer();
+            Boxer.Items.Add("cocl");
             this.currentUser = currentUser;
             this.db = db;
+        
+
         }
 
         public async Task MyTimer()
         {
             while (true)
             {
-                MyTime.Content = DateTime.Now.ToString();
+               
                 await Task.Delay(1000);
             }
         }
@@ -52,9 +58,37 @@ namespace Financik
 
         private void btnAddStatistic_Click(object sender, RoutedEventArgs e)
         {
-            AddFinance addFinanceWindow = new AddFinance(currentCard, currentUser, db);
-            addFinanceWindow.Show();
-            this.Close();
+            try
+            {
+                currentCard = db.GetCardByNumber(Boxer.SelectedItem.ToString());
+                AddFinance addFinanceWindow = new AddFinance(currentCard, currentUser, db);
+                addFinanceWindow.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Select card", "Card");
+            }
         }
+
+        private async void btnAddCard_Click(object sender, RoutedEventArgs e)
+        {
+            //MyTasker();
+            Random rnd = new Random();
+            Int64 NumberCard = rnd.NextInt64(1000000000000000, 9999999999999999);
+            await db.AddCard(new Card { Number = NumberCard.ToString(), Date = DateTime.Now, UserId = currentUser.Id});
+            Boxer.Items.Add(NumberCard);
+        }
+
+        //public void MyTasker()
+        //{ 
+        //    currentCardList = currentUser.Cards;
+            
+        //    foreach (var card in currentCardList)
+        //    {
+        //        Boxer.Items.Add(card.Number);
+        //    }
+        //}
+
     }
 }
