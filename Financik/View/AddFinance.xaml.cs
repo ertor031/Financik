@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Financik.Db;
+using Financik.Models;
+using Financik.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +22,38 @@ namespace Financik
     /// </summary>
     public partial class AddFinance : Window
     {
+        Card currentCard;
+        PersonalFinanceDb _db;
+        FinanceViewModel vievModel;
         public AddFinance()
         {
             InitializeComponent();
+            vievModel = new FinanceViewModel();
+            DataContext = vievModel;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public AddFinance(Card card, PersonalFinanceDb db)
         {
-            this.Close();
+            InitializeComponent();
+            currentCard = card;
+            _db = db;
+            vievModel = new FinanceViewModel();
+            DataContext = vievModel;
+        }
+        private async void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (rbCategory.IsChecked == true)
+            {
+                DateTime? selectedDateFrom = dpFrom.SelectedDate;
+                DateTime? selectedDateTo = dpTo.SelectedDate;
+                await _db.AddCategory(new Category { Name = tbTitle.Text, CardId = currentCard.Id });
+                await _db.AddCost(new Cost { CardId = currentCard.Id, Count = Decimal.Parse(tbPrice.Text), DayFrom = (DateTime)selectedDateFrom, DayTo = (DateTime)selectedDateTo });
+            }
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
