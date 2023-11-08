@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Financik.Db
 {
-    internal class PersonalFinanceDb
+    public class PersonalFinanceDb
     {
         private readonly PersonalFinanceDbContext _db;
         public PersonalFinanceDb(PersonalFinanceDbContext db)
@@ -321,11 +321,11 @@ namespace Financik.Db
             }
         }
 
-        public User? GetUserByLogin(string login)
+        public User? GetUserByLoginAndPassword(string login, string password)
         {
             try
             {
-                var user = _db.Users.Where(u => u.Login == login).FirstOrDefault();
+                var user = _db.Users.Where(u => u.Login == login && u.Password == password).FirstOrDefault();
                 return user;
             }
             catch (Exception ex)

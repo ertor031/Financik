@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Financik.Db;
+using Financik.Models;
 
 namespace Financik
 {
@@ -20,26 +22,15 @@ namespace Financik
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        User currentUser;
+        PersonalFinanceDb db;
+        public MainWindow(User currentUser, PersonalFinanceDb db)
         {
             InitializeComponent();
             _ = MyTimer();
+            this.currentUser = currentUser;
+            this.db = db;
         }
-
-        //private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    if (Checkboxer.IsChecked == true)
-        //    {
-
-        //        Authorisation.IsEnabled = true;
-        //        Regestration.IsEnabled = true;
-        //    }
-        //    else
-        //    {
-        //        Authorisation.IsEnabled = false;
-        //        Regestration.IsEnabled = false;
-        //    }
-        //}
 
         public async Task MyTimer()
         {
@@ -48,19 +39,6 @@ namespace Financik
                 MyTime.Content = DateTime.Now.ToString();
                 await Task.Delay(1000);
             }
-        }
-
-        private void Authorisation_Click(object sender, RoutedEventArgs e)
-        {
-            ///Код для входа 
-            ///Есле автризация успешка то add card enable = true
-
-        }
-
-        private void Regestration_Click(object sender, RoutedEventArgs e)
-        {
-            ///Код для регистрации
-            //////Есле регистрации успешка то add card enable = true
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
