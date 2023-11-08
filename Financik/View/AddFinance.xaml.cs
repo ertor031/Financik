@@ -23,6 +23,7 @@ namespace Financik
     public partial class AddFinance : Window
     {
         Card currentCard;
+        User currentUser;
         PersonalFinanceDb _db;
         FinanceViewModel vievModel;
         public AddFinance()
@@ -32,10 +33,11 @@ namespace Financik
             DataContext = vievModel;
         }
 
-        public AddFinance(Card card, PersonalFinanceDb db)
+        public AddFinance(Card card, User user, PersonalFinanceDb db)
         {
             InitializeComponent();
             currentCard = card;
+            currentUser = user;
             _db = db;
             vievModel = new FinanceViewModel();
             DataContext = vievModel;
@@ -53,7 +55,9 @@ namespace Financik
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mainWindow = new MainWindow(currentUser, _db);
+            this.Close();
+            mainWindow.Show();
         }
     }
 }

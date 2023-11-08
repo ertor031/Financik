@@ -68,7 +68,7 @@ namespace Financik.View
                 // якщо такого користувача не було і він додався
                 if (!exists && db.GetUserByLoginAndPassword(MyLogin_r.Text,MyPassword_r.Password) != null)
                 {
-                    currentUser = new User { Login = MyLogin_r.Text, Password = MyPassword_r.Password };
+                    currentUser = db.GetUserByLoginAndPassword(MyLogin_r.Text, MyPassword_r.Password);
                     MessageBox.Show("Registrated");
                     await OpenMainWindow();
                 }
@@ -84,7 +84,7 @@ namespace Financik.View
             {
                 if (db.GetUserByLoginAndPassword(MyLogin_a.Text, MyPassword_a.Password) != null)
                 {
-                    currentUser = new User { Login = MyLogin_a.Text, Password = MyPassword_a.Password };
+                    currentUser = db.GetUserByLoginAndPassword(MyLogin_a.Text, MyPassword_a.Password);
                     MessageBox.Show("Authorized");
 
                     await OpenMainWindow();
