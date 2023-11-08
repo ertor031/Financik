@@ -1,5 +1,6 @@
 ﻿using Financik.Data;
 using Financik.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Financik.Db
         }
 
         //For card
-        public void AddCard(Card card)
+        public async Task AddCard(Card card)
         {
             if (_db.Cards.Any(c => c.Number == card.Number))
             {
@@ -25,8 +26,8 @@ namespace Financik.Db
             }
             else
             {
-                _db.Cards.Add(card);
-                _db.SaveChanges();
+                await _db.Cards.AddAsync(card);
+                await _db.SaveChangesAsync();
             }
         }
 
@@ -44,13 +45,13 @@ namespace Financik.Db
             }
         }
 
-        public void DeleteCardByNumber(string number)
+        public async Task DeleteCardByNumber(string number)
         {
             var card = _db.Cards.Where(c => c.Number == number).FirstOrDefault();
             if (card != null)
             {
                 _db.Cards.Remove(card);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             else
             {
@@ -58,13 +59,13 @@ namespace Financik.Db
             }
         }
 
-        public void UpdateCardByNumber(string number, int userId, DateTime date)
+        public async Task UpdateCardByNumber(string number, int userId, DateTime date)
         {
             var card = _db.Cards.Where(c => c.Number == number).FirstOrDefault();
             if (card != null)
             {
                 card.Date = date;
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             else
             {
@@ -73,11 +74,16 @@ namespace Financik.Db
         }
 
         //For category
-        public void AddCategory(Category category)
+        public async Task AddCategory(Category category)
         {
             if (_db.Categories.Any(c => c.Name == category.Name))
             {
                 System.Windows.Forms.MessageBox.Show("This category already exists in the database");
+            }
+            else
+            {
+                await _db.Categories.AddAsync(category);
+                await _db.SaveChangesAsync();
             }
         }
 
@@ -95,13 +101,13 @@ namespace Financik.Db
             }
         }
 
-        public void UpdateCategoryById(int id, string name)
+        public async Task UpdateCategoryById(int id, string name)
         {
             var category = _db.Categories.Where(c => c.Id == id).FirstOrDefault();
             if (category != null)
             {
                 category.Name = name;
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             else
             {
@@ -109,13 +115,13 @@ namespace Financik.Db
             }
         }
 
-        public void DeleteCategoryByName(string name)
+        public async Task DeleteCategoryByName(string name)
         {
             var category = _db.Categories.Where(c => c.Name == name).FirstOrDefault();
             if (category != null)
             {
                 _db.Categories.Remove(category);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             else
             {
@@ -124,7 +130,7 @@ namespace Financik.Db
         }
 
         //For cost
-        public void AddCost(Cost cost)
+        public async Task AddCost(Cost cost)
         {
             if (_db.Costs.Any(c => c.Card == cost.Card && c.DayFrom == cost.DayFrom && c.DayTo == cost.DayTo))
             {
@@ -132,8 +138,8 @@ namespace Financik.Db
             }
             else
             {
-                _db.Costs.Add(cost);
-                _db.SaveChanges();
+                await _db.Costs.AddAsync(cost);
+                await _db.SaveChangesAsync();
             }
         }
 
@@ -151,7 +157,7 @@ namespace Financik.Db
             }
         }
 
-        public void UpdateCostById(int id, int count = 0, DateTime dayFrom = default, DateTime dayTo = default)
+        public async Task UpdateCostById(int id, int count = 0, DateTime dayFrom = default, DateTime dayTo = default)
         {
             var cost = _db.Costs.Where(c => c.Id == id).FirstOrDefault();
             if (cost != null)
@@ -162,7 +168,7 @@ namespace Financik.Db
                     cost.DayFrom = dayFrom;
                 if (dayTo != default)
                     cost.DayTo = dayTo;
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             else
             {
@@ -170,13 +176,13 @@ namespace Financik.Db
             }
         }
 
-        public void DeleteCostById(int id)
+        public async Task DeleteCostById(int id)
         {
             var cost = _db.Costs.Where(c => c.Id == id).FirstOrDefault();
             if (cost != null)
             {
                 _db.Costs.Remove(cost);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             else
             {
@@ -185,7 +191,7 @@ namespace Financik.Db
         }
 
         //For income
-        public void AddIncome(Income income)
+        public async Task AddIncome(Income income)
         {
             if (_db.Incomes.Any(i => i.Card == income.Card && i.DayFrom == income.DayFrom && i.DayTo == income.DayTo))
             {
@@ -193,8 +199,8 @@ namespace Financik.Db
             }
             else
             {
-                _db.Incomes.Add(income);
-                _db.SaveChanges();
+                await _db.Incomes.AddAsync(income);
+                await _db.SaveChangesAsync();
             }
         }
 
@@ -212,7 +218,7 @@ namespace Financik.Db
             }
         }
 
-        public void UpdateIncomeById(int id, int count = 0, DateTime dayFrom = default, DateTime dayTo = default)
+        public async Task UpdateIncomeById(int id, int count = 0, DateTime dayFrom = default, DateTime dayTo = default)
         {
             var income = _db.Incomes.Where(i => i.Id == id).FirstOrDefault();
             if (income != null)
@@ -223,7 +229,7 @@ namespace Financik.Db
                     income.DayFrom = dayFrom;
                 if (dayTo != default)
                     income.DayTo = dayTo;
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             else
             {
@@ -231,13 +237,13 @@ namespace Financik.Db
             }
         }
 
-        public void DeleteIncomeById(int id)
+        public async Task DeleteIncomeById(int id)
         {
             var income = _db.Incomes.Where(i => i.Id == id).FirstOrDefault();
             if (income != null)
             {
                 _db.Incomes.Remove(income);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             else
             {
@@ -246,7 +252,7 @@ namespace Financik.Db
         }
 
         //For income source
-        public void AddIncomeSource(IncomeSource incomeSource)
+        public async Task AddIncomeSource(IncomeSource incomeSource)
         {
             if (_db.IncomeSources.Any(i => i.Name == incomeSource.Name))
             {
@@ -254,8 +260,8 @@ namespace Financik.Db
             }
             else
             {
-                _db.IncomeSources.Add(incomeSource);
-                _db.SaveChanges();
+                await _db.IncomeSources.AddAsync(incomeSource);
+                await _db.SaveChangesAsync();
             }
         }
 
@@ -273,12 +279,13 @@ namespace Financik.Db
             }
         }
 
-        public void UpdateIncomeSourceById(int id, string name)
+        public async Task UpdateIncomeSourceById(int id, string name)
         {
             var incomeSource = _db.IncomeSources.Where(i => i.Id == id).FirstOrDefault();
             if (incomeSource != null)
             {
                 incomeSource.Name = name;
+                await _db.SaveChangesAsync();
             }
             else
             {
@@ -286,13 +293,13 @@ namespace Financik.Db
             }
         }
 
-        public void DeleteIncomeSourceByName(string name)
+        public async Task DeleteIncomeSourceByName(string name)
         {
             var incomeSource = _db.IncomeSources.Where(i => i.Name == name).FirstOrDefault();
             if (incomeSource != null)
             {
                 _db.IncomeSources.Remove(incomeSource);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             else
             {
@@ -301,24 +308,24 @@ namespace Financik.Db
         }
 
         //For user
-        public void AddUser(User user)
+        public async Task AddUser(User user)
         {
-            if (_db.Users.Any(u => u.Login == user.Login || u.Password == user.Password))
+            if (await _db.Users.AnyAsync(u => u.Login == user.Login))
             {
                 System.Windows.Forms.MessageBox.Show("This user already exists in the database");
             }
             else
             {
-                _db.Users.Add(user);
-                _db.SaveChanges();
+                await _db.Users.AddAsync(user);
+                await _db.SaveChangesAsync();
             }
         }
 
-        public User? GetUserByLoginAndPassword(string login, string password)
+        public User? GetUserByLogin(string login)
         {
             try
             {
-                var user = _db.Users.Where(u => u.Login == login && u.Password == password).FirstOrDefault();
+                var user = _db.Users.Where(u => u.Login == login).FirstOrDefault();
                 return user;
             }
             catch (Exception ex)
@@ -328,7 +335,7 @@ namespace Financik.Db
             }
         }
 
-        public void UpdateUserById(int id, string login = "", string password = "")
+        public async Task UpdateUserById(int id, string login = "", string password = "")
         {
             var user = _db.Users.Where(u => u.Id == id).FirstOrDefault();
             if (user != null)
@@ -337,7 +344,7 @@ namespace Financik.Db
                     user.Login = login;
                 if (password != "")
                     user.Password = password;
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             else
             {
@@ -345,13 +352,13 @@ namespace Financik.Db
             }
         }
 
-        public void DeleteUserByLogin(string login)
+        public async Task DeleteUserByLogin(string login)
         {
             var user = _db.Users.Where(u => u.Login == login).FirstOrDefault();
             if (user != null)
             {
                 _db.Users.Remove(user);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             else
             {
