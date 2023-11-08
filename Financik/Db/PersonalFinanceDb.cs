@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Financik.Db
 {
-    internal class PersonalFinanceDb
+    public class PersonalFinanceDb
     {
         private readonly PersonalFinanceDbContext _db;
         public PersonalFinanceDb(PersonalFinanceDbContext db)
