@@ -6,8 +6,8 @@
 
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Finance" Height="570" Width="804" x:Name="addProd">
-    <Grid>
+        Title="Finance" Height="772" Width="804" x:Name="addProd">
+    <Grid Margin="0,0,0,-6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -25,6 +25,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBox x:Name="tbTitle" Grid.Row="0" Grid.ColumnSpan="10" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Title" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <TextBox x:Name="tbPrice" Grid.Row="1"  FontSize="25" FontWeight="Bold" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Price" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"></TextBox>
@@ -32,6 +33,7 @@
                     <DatePicker x:Name="dpFrom" Grid.Row="2" FontSize="25" SelectedDate="{Binding SelectedDateFrom, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label Grid.Row="3" FontSize="20" Content="Date To:" FontWeight="Bold" Target="{Binding ElementName=datePicker}"/>
                     <DatePicker x:Name="dpTo" Grid.Row="3" FontSize="25" SelectedDate="{Binding SelectedDateTo, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label x:Name="NumCard" FontSize="30" Grid.Row="5"></Label>
                     <Grid Grid.Row="4">
                         <Grid.RowDefinitions>
                             <RowDefinition/>

@@ -39,6 +39,7 @@ namespace Financik
             currentCard = card;
             currentUser = user;
             _db = db;
+            _ = LoadCard();
             vievModel = new FinanceViewModel();
             DataContext = vievModel;
         }
@@ -60,11 +61,24 @@ namespace Financik
             }
         }
 
+        
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow(currentUser, _db);
             this.Close();
             mainWindow.Show();
+        }
+
+        public async Task LoadCard()
+        {
+            try
+            {
+                NumCard.Content = currentCard.Number;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

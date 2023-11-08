@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,18 +33,16 @@ namespace Financik
         {
             InitializeComponent();
             _ = MyTimer();
-            Boxer.Items.Add("cocl");
             this.currentUser = currentUser;
             this.db = db;
-        
-
+            _ = CardsLoader();
         }
 
         public async Task MyTimer()
         {
             while (true)
             {
-               
+                MyTime.Content = DateTime.Now.ToString();
                 await Task.Delay(1000);
             }
         }
@@ -60,35 +59,47 @@ namespace Financik
         {
             try
             {
-                currentCard = db.GetCardByNumber(Boxer.SelectedItem.ToString());
-                AddFinance addFinanceWindow = new AddFinance(currentCard, currentUser, db);
-                addFinanceWindow.Show();
-                this.Close();
+                if (Boxer.SelectedItem != null)
+                {
+                    currentCard = db.GetCardByNumber(Boxer.SelectedItem.ToString());
+                    AddFinance addFinanceWindow = new AddFinance(currentCard, currentUser, db);
+                    addFinanceWindow.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Select card", "Card");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Select card", "Card");
+                MessageBox.Show(ex.Message);
             }
         }
 
         private async void btnAddCard_Click(object sender, RoutedEventArgs e)
         {
-            //MyTasker();
+            
             Random rnd = new Random();
             Int64 NumberCard = rnd.NextInt64(1000000000000000, 9999999999999999);
             await db.AddCard(new Card { Number = NumberCard.ToString(), Date = DateTime.Now, UserId = currentUser.Id});
             Boxer.Items.Add(NumberCard);
         }
 
-        //public void MyTasker()
-        //{ 
-        //    currentCardList = currentUser.Cards;
-            
-        //    foreach (var card in currentCardList)
-        //    {
-        //        Boxer.Items.Add(card.Number);
-        //    }
-        //}
-
+        public async Task CardsLoader()
+        {
+            try
+            {
+                currentCardList = db.GetCardsByUserId(currentUser.Id);
+                foreach (var cards in currentCardList)
+                {
+                    Boxer.Items.Add(cards.Number);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
