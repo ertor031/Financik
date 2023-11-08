@@ -1,8 +1,10 @@
 ﻿using Financik.Data;
 using Financik.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -303,14 +305,14 @@ namespace Financik.Db
         //For user
         public void AddUser(User user)
         {
-            if (_db.Users.Any(u => u.Login == user.Login || u.Password == user.Password))
+            if ( _db.Users.Any(u => u.Login == user.Login))
             {
                 System.Windows.Forms.MessageBox.Show("This user already exists in the database");
             }
             else
             {
-                _db.Users.Add(user);
-                _db.SaveChanges();
+                 _db.Users.Add(user);
+                 _db.SaveChanges();
             }
         }
 

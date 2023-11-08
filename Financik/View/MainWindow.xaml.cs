@@ -9,9 +9,11 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Financik.Models;
 
 namespace Financik
 {
@@ -20,26 +22,13 @@ namespace Financik
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        User currentUser;
+        public MainWindow(User currentUser)
         {
             InitializeComponent();
             _ = MyTimer();
+            this.currentUser = currentUser;
         }
-
-        //private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    if (Checkboxer.IsChecked == true)
-        //    {
-
-        //        Authorisation.IsEnabled = true;
-        //        Regestration.IsEnabled = true;
-        //    }
-        //    else
-        //    {
-        //        Authorisation.IsEnabled = false;
-        //        Regestration.IsEnabled = false;
-        //    }
-        //}
 
         public async Task MyTimer()
         {
@@ -48,19 +37,6 @@ namespace Financik
                 MyTime.Content = DateTime.Now.ToString();
                 await Task.Delay(1000);
             }
-        }
-
-        private void Authorisation_Click(object sender, RoutedEventArgs e)
-        {
-            ///Код для входа 
-            ///Есле автризация успешка то add card enable = true
-
-        }
-
-        private void Regestration_Click(object sender, RoutedEventArgs e)
-        {
-            ///Код для регистрации
-            //////Есле регистрации успешка то add card enable = true
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
