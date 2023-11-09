@@ -49,7 +49,7 @@ namespace Financik
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Statistic taskWindow = new Statistic();
+            Statistic taskWindow = new Statistic(db, currentCard);
             taskWindow.ViewModel = "ViewModel";
             taskWindow.Show();
 
