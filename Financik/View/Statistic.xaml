@@ -6,7 +6,6 @@
         mc:Ignorable="d"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         Title="Finance" Height="570" Width="804" x:Name="addProd">
     <Grid>
         <Grid.ColumnDefinitions>
