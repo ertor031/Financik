@@ -28,18 +28,20 @@ namespace Financik
         private PersonalFinanceDb _db;
         private Card _card;
 
-        public Statistic(PersonalFinanceDb db, Card card)
+        public Statistic(PersonalFinanceDb db, Card card) : this()
         {
             _db = db;
             _card = card;
-
-            InitializeComponent();
 
             var categories = _db.GetCategoriesByCard(card.Number);
             var incomeSources = _db.GetIncomeSourcesByCard(card.Number);
 
             foreach (var category in categories) CategoryComboBox.Items.Add(category.Name);
             foreach (var incomeSource in incomeSources) IncomeSourceComboBox.Items.Add(incomeSource.Name);
+        }
+        public Statistic()
+        {
+            InitializeComponent();
         }
 
         public void ShowViewModel()
