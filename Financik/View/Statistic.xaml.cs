@@ -46,7 +46,7 @@ namespace Financik
         {
             MessageBox.Show(ViewModel);
         }
-        private async Task Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (CategoryComboBox.SelectedItem != null)
             {
