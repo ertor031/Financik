@@ -106,7 +106,7 @@ namespace Financik.Db
         {
             if (_db.Categories.Any(c => c.Name == category.Name))
             {
-                System.Windows.Forms.MessageBox.Show("This category already exists in the database");
+                return;
             }
             else
             {
@@ -335,7 +335,7 @@ namespace Financik.Db
         {
             if (_db.IncomeSources.Any(i => i.Name == incomeSource.Name))
             {
-                System.Windows.Forms.MessageBox.Show("This income source already exists in the database");
+                return;
             }
             else
             {
