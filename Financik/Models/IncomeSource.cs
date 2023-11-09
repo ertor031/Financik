@@ -14,5 +14,6 @@ namespace Financik.Models
         public string Name { get; set; } = null!;
         public int CardId { get; set; }
         public Card? Card { get; set; }
+        public List<Income> Incomes { get; set; } = new();
     }
 }

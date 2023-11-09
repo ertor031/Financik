@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Financik.Migrations
 {
     [DbContext(typeof(PersonalFinanceDbContext))]
-    [Migration("20231104181006_Initial migration")]
-    partial class Initialmigration
+    [Migration("20231109164657_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,6 +88,9 @@ namespace Financik.Migrations
                     b.Property<int>("CardId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Count")
                         .HasColumnType("money");
 
@@ -100,6 +103,8 @@ namespace Financik.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CardId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Costs");
                 });
@@ -124,9 +129,14 @@ namespace Financik.Migrations
                     b.Property<DateTime>("DayTo")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IncomeSourceId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CardId");
+
+                    b.HasIndex("IncomeSourceId");
 
                     b.ToTable("Incomes");
                 });
@@ -206,7 +216,15 @@ namespace Financik.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Financik.Models.Category", "Category")
+                        .WithMany("Costs")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Card");
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Financik.Models.Income", b =>
@@ -217,7 +235,15 @@ namespace Financik.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Financik.Models.IncomeSource", "IncomeSource")
+                        .WithMany("Incomes")
+                        .HasForeignKey("IncomeSourceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Card");
+
+                    b.Navigation("IncomeSource");
                 });
 
             modelBuilder.Entity("Financik.Models.IncomeSource", b =>
@@ -239,6 +265,16 @@ namespace Financik.Migrations
 
                     b.Navigation("IncomeSources");
 
+                    b.Navigation("Incomes");
+                });
+
+            modelBuilder.Entity("Financik.Models.Category", b =>
+                {
+                    b.Navigation("Costs");
+                });
+
+            modelBuilder.Entity("Financik.Models.IncomeSource", b =>
+                {
                     b.Navigation("Incomes");
                 });
 

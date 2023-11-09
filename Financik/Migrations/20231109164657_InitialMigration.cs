@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Financik.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialmigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -67,50 +67,6 @@ namespace Financik.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Costs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Count = table.Column<decimal>(type: "money", nullable: false),
-                    DayFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DayTo = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CardId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Costs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Costs_Cards_CardId",
-                        column: x => x.CardId,
-                        principalTable: "Cards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Incomes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Count = table.Column<decimal>(type: "money", nullable: false),
-                    DayFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DayTo = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CardId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Incomes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Incomes_Cards_CardId",
-                        column: x => x.CardId,
-                        principalTable: "Cards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "IncomeSources",
                 columns: table => new
                 {
@@ -128,6 +84,64 @@ namespace Financik.Migrations
                         principalTable: "Cards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Costs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Count = table.Column<decimal>(type: "money", nullable: false),
+                    DayFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DayTo = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CardId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Costs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Costs_Cards_CardId",
+                        column: x => x.CardId,
+                        principalTable: "Cards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Costs_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Incomes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Count = table.Column<decimal>(type: "money", nullable: false),
+                    DayFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DayTo = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CardId = table.Column<int>(type: "int", nullable: false),
+                    IncomeSourceId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Incomes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Incomes_Cards_CardId",
+                        column: x => x.CardId,
+                        principalTable: "Cards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Incomes_IncomeSources_IncomeSourceId",
+                        column: x => x.IncomeSourceId,
+                        principalTable: "IncomeSources",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -152,9 +166,19 @@ namespace Financik.Migrations
                 column: "CardId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Costs_CategoryId",
+                table: "Costs",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Incomes_CardId",
                 table: "Incomes",
                 column: "CardId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Incomes_IncomeSourceId",
+                table: "Incomes",
+                column: "IncomeSourceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IncomeSources_CardId",
@@ -166,13 +190,13 @@ namespace Financik.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
                 name: "Costs");
 
             migrationBuilder.DropTable(
                 name: "Incomes");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "IncomeSources");

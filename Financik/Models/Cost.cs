@@ -18,6 +18,8 @@ namespace Financik.Models
         //Дата до якої ведеться рахунок витрат
         public DateTime DayTo { get; set; }
         public int CardId { get; set; }
+        public int CategoryId { get;set; }
         public Card? Card { get; set; }
+        public Category? Category { get; set; }
     }
 }

@@ -24,6 +24,18 @@ namespace Financik.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Income>()
+        .HasOne(i => i.IncomeSource)
+        .WithMany(isr => isr.Incomes)
+        .HasForeignKey(i => i.IncomeSourceId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Cost>()
+        .HasOne(c => c.Category)
+        .WithMany(cat => cat.Costs)
+        .HasForeignKey(c => c.CategoryId)
+        .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Card>()
                 .HasIndex(c => c.Number)
                 .IsUnique();

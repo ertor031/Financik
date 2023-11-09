@@ -18,6 +18,8 @@ namespace Financik.Models
         //Дата до якої ведеться рахунок доходу
         public DateTime DayTo { get; set; }
         public int CardId { get; set; }
+        public int IncomeSourceId { get; set; }
         public Card? Card { get; set; }
+        public IncomeSource? IncomeSource { get; set; }
     }
 }
