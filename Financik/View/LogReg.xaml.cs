@@ -41,12 +41,10 @@ namespace Financik.View
             if (Checkboxer.IsChecked == true)
             {
 
-                Authorisation.IsEnabled = true;
                 Regestration.IsEnabled = true;
             }
             else
             {
-                Authorisation.IsEnabled = false;
                 Regestration.IsEnabled = false;
             }
         }
@@ -104,5 +102,8 @@ namespace Financik.View
             this.Close();
             mainWindow.Show();
         }
+
+
+
     }
 }
