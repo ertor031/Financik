@@ -177,7 +177,7 @@ namespace Financik.Db
         //For cost
         public async Task AddCost(Cost cost)
         {
-            if (_db.Costs.Any(c => c.Card == cost.Card && c.DayFrom == cost.DayFrom && c.DayTo == cost.DayTo && c.Category==cost.Category))
+            if (_db.Costs.Any(c => c.Card == cost.Card && c.DayFrom == cost.DayFrom && c.DayTo == cost.DayTo && c.CategoryId==cost.CategoryId))
             {
                 System.Windows.Forms.MessageBox.Show("This cost already exists in the database");
             }
@@ -255,7 +255,7 @@ namespace Financik.Db
         //For income
         public async Task AddIncome(Income income)
         {
-            if (_db.Incomes.Any(i => i.Card == income.Card && i.DayFrom == income.DayFrom && i.DayTo == income.DayTo && i.IncomeSource==income.IncomeSource))
+            if (_db.Incomes.Any(i => i.Card == income.Card && i.DayFrom == income.DayFrom && i.DayTo == income.DayTo && i.IncomeSourceId==income.IncomeSourceId))
             {
                 System.Windows.Forms.MessageBox.Show("This income already exists in the database");
             }

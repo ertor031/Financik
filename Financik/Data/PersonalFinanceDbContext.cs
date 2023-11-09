@@ -19,7 +19,7 @@ namespace Financik.Data
         public PersonalFinanceDbContext(DbContextOptions<PersonalFinanceDbContext> options) : base(options)
         {
             //Database.EnsureDeleted();
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
