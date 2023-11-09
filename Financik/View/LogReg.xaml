@@ -24,7 +24,7 @@
                     <TextBox x:Name="MyLogin_r" Grid.Row="0" Margin="20px" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Логин" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                     <PasswordBox x:Name="MyPassword_r" Grid.Row="1"  Margin="20px" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Пароль" Style="{StaticResource MaterialDesignFilledPasswordBox}"></PasswordBox>
                     <CheckBox x:Name="Checkboxer"  FontSize="15" Grid.Row="2"  Margin="20px" Content="Offer" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
-                    <Button x:Name="Regestration" Grid.Row="1" Grid.Column="1" Margin="10" FontSize="20" Click="Registration_Click" >Регестрация</Button>
+                    <Button x:Name="Regestration" Grid.Row="1" Grid.Column="1" Margin="10" FontSize="20" Click="Registration_Click" IsEnabled="False" >Регестрация</Button>
                     <TextBlock FontSize="15" FontWeight="Bold" TextAlignment="Center">Comand3Company</TextBlock>
                 </StackPanel>
             </TabItem>
