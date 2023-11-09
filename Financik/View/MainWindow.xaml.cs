@@ -49,10 +49,10 @@ namespace Financik
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            currentCard = db.GetCardByNumber(Boxer.SelectedItem.ToString());
             Statistic taskWindow = new Statistic(db, currentCard);
             taskWindow.ViewModel = "ViewModel";
             taskWindow.Show();
-
         }
 
         private void btnAddStatistic_Click(object sender, RoutedEventArgs e)

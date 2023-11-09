@@ -36,8 +36,8 @@ namespace Financik
             var categories = _db.GetCategoriesByCard(card.Number);
             var incomeSources = _db.GetIncomeSourcesByCard(card.Number);
 
-            foreach (var category in categories) CategoryComboBox.Items.Add(category.Name);
-            foreach (var incomeSource in incomeSources) IncomeSourceComboBox.Items.Add(incomeSource.Name);
+            foreach (var category in categories) CategoryComboBox.Items.Add(category);
+            foreach (var incomeSource in incomeSources) IncomeSourceComboBox.Items.Add(incomeSource);
         }
         public Statistic()
         {
@@ -50,13 +50,15 @@ namespace Financik
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (CategoryComboBox.SelectedItem != null)
-            {
-                IncomeList.ItemsSource = _db.GetIncomesByCard(_card.Number).Where(i => i.IncomeSource.Name == CategoryComboBox.SelectedItem);
-            }
             if (IncomeSourceComboBox.SelectedItem != null)
             {
-                SpendList.ItemsSource = _db.GetCostsByCard(_card.Number).Where(i => i.Category.Name == IncomeSourceComboBox.SelectedItem);
+                IncomeSource incomeSource = IncomeSourceComboBox.SelectedItem as IncomeSource;
+                IncomeList.ItemsSource = _db.GetIncomesByCard(_card.Number).Where(i => i.IncomeSourceId == incomeSource.Id);
+            }
+            if (CategoryComboBox.SelectedItem != null)
+            {
+                Category category = CategoryComboBox.SelectedItem as Category;
+                SpendList.ItemsSource = _db.GetCostsByCard(_card.Number).Where(c => c.CategoryId == category.Id);
             }
         }
 

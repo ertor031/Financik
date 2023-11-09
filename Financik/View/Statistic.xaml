@@ -34,8 +34,20 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox x:Name="CategoryComboBox"  Margin="10,0,10,0" Grid.Column="0" FontSize="20" Height="35"/>
-                    <ComboBox x:Name="IncomeSourceComboBox"  Margin="10,0,10,0" Grid.Column="1" FontSize="20" Height="35"/>
+                    <ComboBox x:Name="IncomeSourceComboBox"  Margin="10,0,10,0" Grid.Column="0" FontSize="24" Height="40">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label FontSize="24" Foreground="Crimson" Content="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox x:Name="CategoryComboBox"  Margin="10,0,10,0" Grid.Column="1" FontSize="24" Height="40">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label FontSize="24" Foreground="LightGreen" Content="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Grid>
 
                 <ListView x:Name="IncomeList"  Margin="10px" Grid.Column="0" Grid.Row="1">
