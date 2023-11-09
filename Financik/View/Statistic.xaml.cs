@@ -1,6 +1,11 @@
-﻿using System;
+﻿using Financik.Db;
+using Financik.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,11 +25,21 @@ namespace Financik
     public partial class Statistic : Window
     {
         public string ViewModel { get; set; }
-        public Statistic()
+        private PersonalFinanceDb _db;
+        private Card _card;
+
+        public Statistic(PersonalFinanceDb db, Card card)
         {
+            _db = db;
+            _card = card;
+
             InitializeComponent();
-            CategoryComboBox.Items.Add("dsdds");
-            CategoryComboBox.Items.Add("dsddsdss");
+
+            var categories = _db.GetCategoriesByCard(card.Number);
+            var incomeSources = _db.GetIncomeSourcesByCard(card.Number);
+
+            foreach (var category in categories) CategoryComboBox.Items.Add(category.Name);
+            foreach (var incomeSource in incomeSources) IncomeSourceComboBox.Items.Add(incomeSource.Name);
         }
 
         public void ShowViewModel()
@@ -33,8 +48,14 @@ namespace Financik
         }
         private async Task Button_Click(object sender, RoutedEventArgs e)
         {
-            ///Нужно сделать два метода или один которые будут возвращать - и + нашего кошелька, ну и тут как я понял нкжно сделать модель
-            SpendList.AppendText("Test");
+            if (CategoryComboBox.SelectedItem != null)
+            {
+                IncomeList.ItemsSource = _db.GetIncomesByCard(_card.Number).Where(i => i.IncomeSource.Name == CategoryComboBox.SelectedItem);
+            }
+            if (IncomeSourceComboBox.SelectedItem != null)
+            {
+                SpendList.ItemsSource = _db.GetCostsByCard(_card.Number).Where(i => i.Category.Name == IncomeSourceComboBox.SelectedItem);
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
