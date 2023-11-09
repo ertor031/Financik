@@ -45,19 +45,26 @@ namespace Financik
         }
         private async void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (rbCategory.IsChecked == true)
+            try
             {
-                DateTime? selectedDateFrom = dpFrom.SelectedDate;
-                DateTime? selectedDateTo = dpTo.SelectedDate;
-                await _db.AddCategory(new Category { Name = tbTitle.Text, CardId = currentCard.Id });
-                await _db.AddCost(new Cost { CardId = currentCard.Id, Count = Decimal.Parse(tbPrice.Text), DayFrom = (DateTime)selectedDateFrom, DayTo = (DateTime)selectedDateTo });
+                if (rbCategory.IsChecked == true)
+                {
+                    DateTime? selectedDateFrom = dpFrom.SelectedDate;
+                    DateTime? selectedDateTo = dpTo.SelectedDate;
+                    await _db.AddCategory(new Category { Name = tbTitle.Text, CardId = currentCard.Id });
+                    await _db.AddCost(new Cost { CardId = currentCard.Id, Count = Decimal.Parse(tbPrice.Text), DayFrom = (DateTime)selectedDateFrom, DayTo = (DateTime)selectedDateTo });
+                }
+                else if (rbIncomeSource.IsChecked == true)
+                {
+                    DateTime? selectedDateFrom = dpFrom.SelectedDate;
+                    DateTime? selectedDateTo = dpTo.SelectedDate;
+                    await _db.AddIncomeSource(new IncomeSource { Name = tbTitle.Text, CardId = currentCard.Id });
+                    await _db.AddIncome(new Income { CardId = currentCard.Id, Count = Decimal.Parse(tbPrice.Text), DayFrom = (DateTime)selectedDateFrom, DayTo = (DateTime)selectedDateTo });
+                }
             }
-            else if(rbIncomeSource.IsChecked==true)
+            catch(Exception ex)
             {
-                DateTime? selectedDateFrom = dpFrom.SelectedDate;
-                DateTime? selectedDateTo = dpTo.SelectedDate;
-                await _db.AddIncomeSource(new IncomeSource { Name = tbTitle.Text, CardId = currentCard.Id });
-                await _db.AddIncome(new Income { CardId = currentCard.Id, Count = Decimal.Parse(tbPrice.Text), DayFrom = (DateTime)selectedDateFrom, DayTo = (DateTime)selectedDateTo });
+                System.Windows.Forms.MessageBox.Show(ex.Message);
             }
         }
 
