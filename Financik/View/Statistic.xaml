@@ -34,17 +34,17 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox x:Name="IncomeSourceComboBox"  Margin="10,0,10,0" Grid.Column="0" FontSize="24" Height="40">
+                    <ComboBox x:Name="IncomeSourceComboBox"  Margin="10,0,10,0" Grid.Column="0" FontSize="24">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <Label FontSize="24" Foreground="Crimson" Content="{Binding Name}"/>
+                                <Label FontSize="20" Foreground="ForestGreen" Content="{Binding Name}"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <ComboBox x:Name="CategoryComboBox"  Margin="10,0,10,0" Grid.Column="1" FontSize="24" Height="40">
+                    <ComboBox x:Name="CategoryComboBox"  Margin="10,0,10,0" Grid.Column="1" FontSize="24">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <Label FontSize="24" Foreground="LightGreen" Content="{Binding Name}"/>
+                                <Label FontSize="20" Foreground="Crimson" Content="{Binding Name}"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
@@ -57,11 +57,12 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
+                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                
-                                <Label FontSize="24" Content="{Binding DateFrom}"/>
-                                <Label FontSize="24" Foreground="LightGreen" Content="{Binding Count}"/>
-                                <Label FontSize="24" Content="{Binding IncomeSource.Name}"/>
+
+                                <Label Grid.Column="0" FontSize="24" Margin="10" Content="{Binding DayFrom, StringFormat='d'}"/>
+                                <Label Grid.Column="1" FontSize="24" Margin="10" Foreground="ForestGreen" Content="{Binding Count}"/>
+                                <Label Grid.Column="2" FontSize="24" Margin="10" Content="{Binding IncomeSource.Name}"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -73,11 +74,12 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
+                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label FontSize="24" Content="{Binding DateFrom}"/>
-                                <Label FontSize="24" Foreground="Crimson" Content="{Binding Count}"/>
-                                <Label FontSize="24" Content="{Binding IncomeSource.Name}"/>
+                                <Label Grid.Column="0" FontSize="24" Margin="10" Content="{Binding DayFrom, StringFormat='d'}"/>
+                                <Label Grid.Column="1" FontSize="24" Margin="10" Foreground="Crimson" Content="{Binding Count}"/>
+                                <Label Grid.Column="2" FontSize="24" Margin="10" Content="{Binding Category.Name}"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

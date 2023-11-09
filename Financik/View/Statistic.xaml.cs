@@ -58,6 +58,7 @@ namespace Financik
             if (CategoryComboBox.SelectedItem != null)
             {
                 Category category = CategoryComboBox.SelectedItem as Category;
+                
                 SpendList.ItemsSource = _db.GetCostsByCard(_card.Number).Where(c => c.CategoryId == category.Id);
             }
         }
