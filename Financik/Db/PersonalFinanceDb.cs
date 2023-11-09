@@ -129,6 +129,23 @@ namespace Financik.Db
             }
         }
 
+        public List<Category> GetCategoriesByCard(string number)
+        {
+            try
+            {
+                Card card = _db.Cards.Where(c => c.Number == number).FirstOrDefault();
+
+                if (card == null) return new List<Category>();
+
+                return _db.Categories.Where(i => i.CardId == card.Id).ToList();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+                return new List<Category>();
+            }
+        }
+
         public async Task UpdateCategoryById(int id, string name)
         {
             var category = _db.Categories.Where(c => c.Id == id).FirstOrDefault();
@@ -182,6 +199,23 @@ namespace Financik.Db
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message);
                 return null;
+            }
+        }
+
+        public List<Cost> GetCostsByCard(string number)
+        {
+            try
+            {
+                Card card = _db.Cards.Where(c => c.Number == number).FirstOrDefault();
+
+                if (card == null) return new List<Cost>();
+
+                return _db.Costs.Where(i => i.CardId == card.Id).ToList();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+                return new List<Cost>();
             }
         }
 
@@ -246,6 +280,23 @@ namespace Financik.Db
             }
         }
 
+        public List<Income> GetIncomesByCard(string number)
+        {
+            try
+            {
+                Card card = _db.Cards.Where(c => c.Number == number).FirstOrDefault();
+
+                if (card == null) return new List<Income>();
+
+                return _db.Incomes.Where(i => i.CardId == card.Id).ToList();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+                return new List<Income>();
+            }
+        }
+
         public async Task UpdateIncomeById(int id, int count = 0, DateTime dayFrom = default, DateTime dayTo = default)
         {
             var income = _db.Incomes.Where(i => i.Id == id).FirstOrDefault();
@@ -304,6 +355,23 @@ namespace Financik.Db
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message);
                 return null;
+            }
+        }
+
+        public List<IncomeSource> GetIncomeSourcesByCard(string number)
+        {
+            try
+            {
+                Card card = _db.Cards.Where(c => c.Number == number).FirstOrDefault();
+
+                if (card == null) return new List<IncomeSource>();
+
+                return _db.IncomeSources.Where(i => i.CardId == card.Id).ToList();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+                return new List<IncomeSource>();
             }
         }
 
